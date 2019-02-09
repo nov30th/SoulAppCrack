@@ -375,6 +375,116 @@ public class PluginMain implements IXposedHookLoadPackage {
 //                    });
             //endregion
 
+            //region OLD RECALL
+            //RECALL
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getStringAttribute",
+                    String.class,
+                    String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "Revokeflag".equals(param.args[0].toString())) {
+                                XposedBridge.log("getAttribute Revokeflag is called.");
+                                param.setResult(null);
+                            }
+                        }
+                    });
+
+            //RECALL
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getStringAttribute",
+                    String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "Revokeflag".equals(param.args[0].toString())) {
+                                XposedBridge.log("getAttribute Revokeflag is called.");
+                                param.setResult(null);
+                            }
+                        }
+                    });
+
+            //RECALL
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getStringAttribute",
+                    String.class,
+                    String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "messageType".equals(param.args[0].toString())) {
+                                if (param.getResult() != null && param.getResult().toString().equals("RECALL")) {
+                                    XposedBridge.log("getAttribute RECALL is called.");
+                                    param.setResult("TXT");
+                                }
+                            }
+                        }
+                    });
+
+            //RECALL
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getStringAttribute",
+                    String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "messageType".equals(param.args[0].toString())) {
+                                if (param.getResult() != null && param.getResult().toString().equals("RECALL")) {
+                                    XposedBridge.log("getAttribute RECALL is called.");
+                                    param.setResult("TXT");
+                                }
+                            }
+                        }
+                    });
+
+            //Snapchat
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getIntAttribute",
+                    String.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "snapChat".equals(param.args[0].toString())) {
+                                XposedBridge.log("getIntAttribute snapChat is called.");
+                                param.setResult(0);
+                            }
+                        }
+                    });
+
+            //Snapchat
+            XposedHelpers.findAndHookMethod(
+                    "com.hyphenate.chat.EMMessage",
+                    lpparam.classLoader,
+                    "getIntAttribute",
+                    String.class,
+                    int.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            if (param.args[0] != null && "snapChat".equals(param.args[0].toString())) {
+                                XposedBridge.log("getIntAttribute snapChat is called.");
+                                param.setResult(0);
+                            }
+                        }
+                    });
+            //endregion
 
             XposedBridge.log("Hook function was executed.");
         }
