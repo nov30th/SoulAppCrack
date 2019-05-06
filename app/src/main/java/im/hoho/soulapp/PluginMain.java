@@ -25,11 +25,11 @@ public class PluginMain implements IXposedHookLoadPackage {
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
 
 
-
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20190130");
+            XposedBridge.log("Updated At 20190506");
+            XposedBridge.log("For Soulmate 3.2.3 Only");
 
 
             //set soulmate enabled
@@ -42,11 +42,11 @@ public class PluginMain implements IXposedHookLoadPackage {
                         @Override
                         protected void beforeHookedMethod(MethodHookParam param)
                                 throws Throwable {
-                            Intent localIntent = (Intent) XposedHelpers.callMethod(param.thisObject,"getIntent");
-                            if (localIntent!=null){
+                            Intent localIntent = (Intent) XposedHelpers.callMethod(param.thisObject, "getIntent");
+                            if (localIntent != null) {
                                 XposedBridge.log("Changing Intent prop canInvite...");
                                 localIntent.removeExtra("canInvite");
-                                localIntent.putExtra("canInvite",true);
+                                localIntent.putExtra("canInvite", true);
                             }
                         }
                     });
@@ -67,8 +67,6 @@ public class PluginMain implements IXposedHookLoadPackage {
                             textView.setText(textView.getText() + "(已破解)");
                         }
                     });
-
-
 
 
 //
@@ -116,23 +114,62 @@ public class PluginMain implements IXposedHookLoadPackage {
                     });
 
 
+            /*   void a(int paramInt)
+  {
+    this.a = paramInt;
+    if ((cn.soulapp.android.ui.voicecall.c.c().e) && (cn.soulapp.android.ui.voicecall.c.c().f))
+    {
+      this.statusTv.setText("");
+      cn.soulapp.android.ui.voicecall.c.c().l().stopAudioMixing();
+      this.statusTv.setBackgroundResource(2131233998);
+      if (!this.e) {
+        this.B.a(2131298323, false);
+        */
+            /*
+            void a(int paramInt)
+  {
+    this.a = paramInt;
+    if ((VoiceRtcEngine.d().g) && (VoiceRtcEngine.d().h))
+    {
+      this.statusTv.setText("");
+      VoiceRtcEngine.d().n().stopAudioMixing();
+      this.statusTv.setBackgroundResource(2131232034);
+      if (!this.j) {
+        if (!ay.a(this.i))
+        {
+          this.D.setVisible(2131298622, true);
+          this.D.setText(2131298622, this.i);
+        }
+        else
+        {
+          this.D.setVisible(2131298622, false);
+        }
+      }
+      this.emojiLayout.setVisibility(0);
+      this.addTimeLayout.setVisibility(4);
+      this.statusTv.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+             */
+
             //show public during voice matching
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.ui.voicecall.c",
+                    "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
                     lpparam.classLoader,
-                    "c",
+                    "d",
                     new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param)
                                 throws Throwable {
                             Object returnedObj = param.getResult();
-                            XposedHelpers.setBooleanField(returnedObj, "f", true);
+                            XposedHelpers.setBooleanField(returnedObj, "h", true);
                         }
                     });
 
+
+            //returns null
             //show public during voice matching
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.ui.voicecall.c",
+                    "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
                     lpparam.classLoader,
                     "a",
                     int.class,
@@ -140,7 +177,7 @@ public class PluginMain implements IXposedHookLoadPackage {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param)
                                 throws Throwable {
-                            XposedHelpers.setBooleanField(param.thisObject, "f", true);
+                            XposedHelpers.setBooleanField(param.thisObject, "h", true);
                         }
                     });
 
@@ -162,20 +199,20 @@ public class PluginMain implements IXposedHookLoadPackage {
 //                    });
 
 
-            //show public during voice matching
-            XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.ui.voicecall.c",
-                    lpparam.classLoader,
-                    "v",
-                    new XC_MethodHook() {
-                        @Override
-                        protected void afterHookedMethod(MethodHookParam param)
-                                throws Throwable {
-                            Object returnedObj = param.getResult();
-                            XposedHelpers.setBooleanField(param.thisObject, "f", true);
-                        }
-                    });
-
+//            //show public during voice matching
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
+//                    lpparam.classLoader,
+//                    "d",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            Object returnedObj = param.getResult();
+//                            if (returnedObj != null)
+//                                XposedHelpers.setBooleanField(param.thisObject, "h", true);
+//                        }
+//                    });
 
 
             final Class<?> userClass = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.user.bean.User");
@@ -207,8 +244,23 @@ public class PluginMain implements IXposedHookLoadPackage {
   public static void c() break
 
              */
+
+
+            /*
+            public static void a()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).c(), new SimpleHttpCallback()
+    {
+      public void a(RemainTimes paramAnonymousRemainTimes)
+      {
+        c.c().j = paramAnonymousRemainTimes;
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+             */
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.api.model.user.online.b",
+                    "cn.soulapp.android.api.model.user.online.a",
                     lpparam.classLoader,
                     "a",
                     new XC_MethodReplacement() {
@@ -219,8 +271,21 @@ public class PluginMain implements IXposedHookLoadPackage {
                         }
                     });
 
+
+            /*
+              public static void b()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).d(), new SimpleHttpCallback()
+    {
+      public void a(User paramAnonymousUser)
+      {
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+             */
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.api.model.user.online.b",
+                    "cn.soulapp.android.api.model.user.online.a",
                     lpparam.classLoader,
                     "b",
                     new XC_MethodReplacement() {
@@ -231,9 +296,20 @@ public class PluginMain implements IXposedHookLoadPackage {
                         }
                     });
 
-
+/*
+  public static void c()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).e(), new SimpleHttpCallback()
+    {
+      public void a(User paramAnonymousUser)
+      {
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+ */
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.api.model.user.online.b",
+                    "cn.soulapp.android.api.model.user.online.a",
                     lpparam.classLoader,
                     "c",
                     new XC_MethodReplacement() {
@@ -244,8 +320,44 @@ public class PluginMain implements IXposedHookLoadPackage {
                         }
                     });
 
+
+            /*
+              public static void a(String paramString1, String paramString2)
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).a(paramString1, paramString2, c.c().o, c.c().t), new SimpleHttpCallback()
+    {
+      public void a(Balance paramAnonymousBalance)
+      {
+        if (paramAnonymousBalance != null)
+        {
+          c.c().p = paramAnonymousBalance.balance;
+          c localc = c.c();
+          StringBuilder localStringBuilder;
+          if (c.c().p > 10)
+          {
+            localStringBuilder = new StringBuilder();
+            localStringBuilder.append(c.c().p);
+            localStringBuilder.append("Soul���������������");
+            localStringBuilder.append(c.c().p / 10);
+          }
+          for (paramAnonymousBalance = "���";; paramAnonymousBalance = "Soul���������������0���")
+          {
+            localStringBuilder.append(paramAnonymousBalance);
+            paramAnonymousBalance = localStringBuilder.toString();
+            break;
+            localStringBuilder = new StringBuilder();
+            localStringBuilder.append(c.c().p);
+          }
+          localc.q = paramAnonymousBalance;
+        }
+        j.b("-----������������-----", new Object[0]);
+      }
+    }, false);
+  }
+             */
+
             XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.api.model.user.online.b",
+                    "cn.soulapp.android.api.model.user.online.a",
                     lpparam.classLoader,
                     "a",
                     String.class,
@@ -257,7 +369,6 @@ public class PluginMain implements IXposedHookLoadPackage {
                             return null;
                         }
                     });
-
 
 
             //region KeyHash
