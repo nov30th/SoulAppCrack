@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.widget.TextView;
 
+import java.util.TreeMap;
+
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
@@ -28,15 +30,15 @@ public class PluginMain implements IXposedHookLoadPackage {
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20190506");
-            XposedBridge.log("For Soulmate 3.2.3 Only");
+            XposedBridge.log("Updated At 20190719");
+            XposedBridge.log("For Soulmate 3.3.2 Only");
 
 
             //set soulmate enabled
             XposedHelpers.findAndHookMethod(
                     "cn.soulapp.android.myim.ui.ConversationMenuActivity",
                     lpparam.classLoader,
-                    "b",
+                    "c",
                     new XC_MethodHook() {
                         @SuppressLint("SetTextI18n")
                         @Override
@@ -56,7 +58,7 @@ public class PluginMain implements IXposedHookLoadPackage {
             XposedHelpers.findAndHookMethod(
                     "cn.soulapp.android.myim.ui.ConversationMenuActivity",
                     lpparam.classLoader,
-                    "b",
+                    "c",
                     new XC_MethodHook() {
                         @SuppressLint("SetTextI18n")
                         @Override
@@ -85,33 +87,36 @@ public class PluginMain implements IXposedHookLoadPackage {
 //                        }
 //                    });
 
-            //Snapchat disable
-            XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.imlib.msg.chat.ChatMessage",
-                    lpparam.classLoader,
-                    "getSnapChat",
-                    new XC_MethodHook() {
-                        @Override
-                        protected void afterHookedMethod(MethodHookParam param)
-                                throws Throwable {
-                            param.setResult(0);
-                            XposedHelpers.setIntField(param.thisObject, "snapChat", 0);
-                        }
-                    });
 
-            //cn.soulapp.android.ui.planet.callmatch
-            //Set public after call
-            XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.ui.planet.callmatch.CallMatchEndActivity",
-                    lpparam.classLoader,
-                    "c",
-                    new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param)
-                                throws Throwable {
-                            XposedHelpers.setBooleanField(param.thisObject, "c", true);
-                        }
-                    });
+            //no time to calc, just disable as I don't need the snap func
+//
+//            //Snapchat disable
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.imlib.msg.chat.ChatMessage",
+//                    lpparam.classLoader,
+//                    "getSnapChat",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            param.setResult(0);
+//                            XposedHelpers.setIntField(param.thisObject, "snapChat", 0);
+//                        }
+//                    });
+//
+//            //cn.soulapp.android.ui.planet.callmatch
+//            //Set public after call
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.planet.callmatch.CallMatchEndActivity",
+//                    lpparam.classLoader,
+//                    "c",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            XposedHelpers.setBooleanField(param.thisObject, "c", true);
+//                        }
+//                    });
 
 
             /*   void a(int paramInt)
@@ -171,13 +176,19 @@ public class PluginMain implements IXposedHookLoadPackage {
             XposedHelpers.findAndHookMethod(
                     "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
                     lpparam.classLoader,
-                    "a",
+                    "b",
                     int.class,
                     new XC_MethodHook() {
                         @Override
-                        protected void afterHookedMethod(MethodHookParam param)
+                        protected void beforeHookedMethod(MethodHookParam param)
                                 throws Throwable {
                             XposedHelpers.setBooleanField(param.thisObject, "h", true);
+//                            Intent localIntent = (Intent) XposedHelpers.callMethod(param.thisObject, "getIntent");
+//                            if (localIntent != null) {
+//                                XposedBridge.log("Changing Intent prop isPublic...");
+//                                localIntent.removeExtra("isPublic");
+//                                localIntent.putExtra("isPublic", true);
+//                            }
                         }
                     });
 
@@ -356,16 +367,61 @@ public class PluginMain implements IXposedHookLoadPackage {
   }
              */
 
+/*
+package cn.soulapp.android.api.model.pay.bean;
+
+import java.io.Serializable;
+
+public class PayResult
+ */
+
+            /*
+            public static void a(String paramString1, String paramString2, boolean paramBoolean) {
+    HashMap hashMap = new HashMap();
+    hashMap.put("targetUserIdEcpt", paramString1);
+    hashMap.put("channelName", paramString2);
+    hashMap.put("uuid", (VoiceRtcEngine.e()).r);
+    hashMap.put("speedUp", Boolean.valueOf((VoiceRtcEngine.e()).x));
+    if ((VoiceRtcEngine.e()).z != null)
+      hashMap.put("cardType", Integer.valueOf((VoiceRtcEngine.e()).z.cardType));
+    hashMap.put("cardResult", Boolean.valueOf(paramBoolean));
+    a.a(((IRobotApi)a.a(IRobotApi.class)).enterChannel(hashMap), new SimpleHttpCallback<Balance>() {
+          public void a(Balance param1Balance) {
+            if (param1Balance != null) {
+              String str;
+              (VoiceRtcEngine.e()).s = param1Balance.balance;
+              VoiceRtcEngine voiceRtcEngine;
+              if (((voiceRtcEngine = VoiceRtcEngine.e()).e()).s > 10) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("������10soul���������������");
+                stringBuilder.append((VoiceRtcEngine.e()).s / 10);
+                stringBuilder.append("���");
+                str = stringBuilder.toString();
+              } else {
+                str = "������10soul���������������0���";
+              }
+              voiceRtcEngine.t = str;
+            }
+            g.b("-----������������-----", new Object[0]);
+          }
+        }false);
+  }
+  */
+
+
             XposedHelpers.findAndHookMethod(
                     "cn.soulapp.android.api.model.user.online.a",
                     lpparam.classLoader,
                     "a",
                     String.class,
                     String.class,
+                    boolean.class,
                     new XC_MethodReplacement() {
                         @Override
                         protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-                            XposedBridge.log("a string string enterChannel method");
+                            XposedBridge.log("a string string boolen enterChannel method");
+                            XposedBridge.log("param1:" + param.args[0] + " param2:" + param.args[1] + " param3:" + param.args[2]);
+
                             return null;
                         }
                     });
@@ -596,6 +652,26 @@ public class PluginMain implements IXposedHookLoadPackage {
 //                        }
 //                    });
             //endregion
+
+
+            //Match bag 福袋
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.ui.planet.index.PlanetBFragment",
+                    lpparam.classLoader,
+                    "showMatchBag",
+                    boolean.class,
+                    boolean.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("show match bag values:" + param.args[0] + ";" + param.args[1]);
+                            param.args[0] = true;
+                            param.args[1] = true;
+                            XposedBridge.log("chages to all true...");
+
+                        }
+                    });
+
 
             XposedBridge.log("Hook function was executed.");
         }
