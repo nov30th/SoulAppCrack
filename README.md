@@ -1,6 +1,6 @@
 # Soulapp Crack
 
-Soulapp Crack is a personal project which makes SoulApp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
+SoulApp Crack is a personal project which makes SoulApp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
 Also, the new version has enabled unlimited voice matching and first-class matching.
   - Blocks recall. 
   - Show snapchat as normal with unlimited viewing time (also can be saved).
