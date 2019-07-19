@@ -9,11 +9,13 @@ Also new version has enabled the unlimited voice matching and first class matchi
   - Unlimited first class voice matching.
   - Soulmate space with anyone you want.
   - View blocked person profile/moments.
+  - Unlimited matching with good quality ppl who judged by soulapp.
 
 **中文**
 
   - 无限语音匹配. 
   - 无限语音优先匹配次数.
+  - 无线语音匹配优质对手（3.3.2新功能）.
   - 接通语音匹配瞬间显示对方资料.
   - 与任意人结成Soulmate并激活Soulmate空间.
   - 文字，图片，视频消息防撤回并有撤回通知.
@@ -21,3 +23,5 @@ Also new version has enabled the unlimited voice matching and first class matchi
 
 **My personal project/use, public when all these functions were useless.**
 **Will be useful for noob learning How To Hook**
+
+**This project is high secret which under personal Git account, no sharing.**
