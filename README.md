@@ -1,15 +1,15 @@
 # Soulapp Crack
 
-Soulapp Crack is a personal project which makes soulapp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
-Also new version has enabled the unlimited voice matching and first class matching.
+Soulapp Crack is a personal project which makes SoulApp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
+Also, the new version has enabled unlimited voice matching and first-class matching.
   - Blocks recall. 
   - Show snapchat as normal with unlimited viewing time (also can be saved).
   - Show people profile/moments during voice call even he/she hasn't public his/her profile.
   - Unlimited voice matching.
-  - Unlimited first class voice matching.
+  - Unlimited first-class voice matching.
   - Soulmate space with anyone you want.
   - View blocked person profile/moments.
-  - Unlimited matching with good quality ppl who judged by soulapp.
+  - Unlimited matching with good quality ppl who judged by SoulApp.
 
 **中文**
 
@@ -24,4 +24,4 @@ Also new version has enabled the unlimited voice matching and first class matchi
 **My personal project/use, public when all these functions were useless.**
 **Will be useful for noob learning How To Hook**
 
-**This project is high secret which under personal Git account, no sharing.**
+**This project is a high secret which under personal Git account, no sharing.**
