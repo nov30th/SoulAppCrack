@@ -1,0 +1,756 @@
+
+
+            //payresult isvaild event
+            final Class<?> PayResult =
+                    lpparam.classLoader.loadClass("cn.soulapp.android.api.model.pay.bean.PayResult");
+
+            //soul币不足 event obj
+            XposedHelpers.findAndHookConstructor(
+                    "cn.soulapp.android.event.t",
+                    lpparam.classLoader,
+                    int.class,
+                    int.class,
+                    Object.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("int:" + param.args[0] + " int:" + param.args[1]);
+
+                            if (param.args[2] != null && param.args[2].getClass() == PayResult) {
+                                XposedBridge.log("deal with payresult event obj...");
+                                Object payResult = param.args[2];
+                                XposedHelpers.setIntField(payResult, "coinNum", 200);
+                                XposedHelpers.setBooleanField(payResult, "isValid", true);
+                                XposedHelpers.setIntField(payResult, "rechargeAmount", 50);
+                            }
+                        }
+                    });
+            XposedHelpers.findAndHookConstructor(
+                    "cn.soulapp.android.event.t",
+                    lpparam.classLoader,
+                    int.class,
+                    Object.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("int:" + param.args[0]);
+
+                            if (param.args[1] != null && param.args[1].getClass() == PayResult) {
+                                XposedBridge.log("deal with payresult event obj...");
+                                Object payResult = param.args[1];
+                                XposedHelpers.setIntField(payResult, "coinNum", 200);
+                                XposedHelpers.setBooleanField(payResult, "isValid", true);
+                                XposedHelpers.setIntField(payResult, "rechargeAmount", 50);
+                            }
+                        }
+                    });
+            XposedHelpers.findAndHookConstructor(
+                    "cn.soulapp.android.event.t",
+                    lpparam.classLoader,
+                    int.class,
+                    String.class,
+                    Object.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("int:" + param.args[0] + " string:" + param.args[1]);
+
+                            if (param.args[2] != null && param.args[2].getClass() == PayResult) {
+                                XposedBridge.log("deal with payresult event obj...");
+                                Object payResult = param.args[2];
+                                XposedHelpers.setIntField(payResult, "coinNum", 200);
+                                XposedHelpers.setBooleanField(payResult, "isValid", true);
+                                XposedHelpers.setIntField(payResult, "rechargeAmount", 50);
+                            }
+                        }
+                    });
+
+            XposedBridge.log("Hook function was executed.");
+
+
+
+
+//
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.planet.index.PlanetBFragment",
+//                    lpparam.classLoader,
+//                    "setUserVisibleHint",
+//                    boolean.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                            Object  HCard =  XposedHelpers.getObjectField(param.thisObject,"H");
+//                            Object  ICard =  XposedHelpers.getObjectField(param.thisObject,"I");
+//                            if (HCard == null)
+//                                return;
+//                            if (ICard != null) {
+//                                List<Object> listMatchCards = (List<Object>) ICard;
+//                                for (Object card :
+//                                        listMatchCards) {
+//                                    XposedHelpers.setIntField(card, "discountSoulCoin", 0);
+//                                    XposedHelpers.setIntField(card, "soulCoin", 0);
+//                                }
+//                            }
+//
+//                        }
+//                    });
+
+
+            final Class<?> MatchCard = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.match.bean.MatchCard");
+            final Class<?> Category = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.pay.bean.Category");
+            final Class<?> RobotActivity = lpparam.classLoader.loadClass("cn.soulapp.android.ui.planet.robot.RobotActivity");
+
+//
+//            //category list chnaging
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.planet.robot.RobotActivity",
+//                    lpparam.classLoader,
+//                    "b",
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                            XposedBridge.log("cn.soulapp.android.ui.planet.robot.RobotActivity starting category...");
+//
+//                            Field robotActivityField = RobotActivity.getDeclaredField("I");
+//                            robotActivityField.setAccessible(true);
+//                            Type categoryListFieldType = robotActivityField.getGenericType();
+//
+//                            if (categoryListFieldType instanceof ParameterizedType) {
+//                                ParameterizedType pt = (ParameterizedType) categoryListFieldType;
+//                                Class clazz = robotActivityField.get(param.thisObject).getClass();
+//                                Method m = clazz.getDeclaredMethod("size");
+//                                int size = (Integer) m.invoke(robotActivityField.get(param.thisObject));
+//                                XposedBridge.log("Category List count: " + size);
+//                                for (int i = 0; i < size; i++) {//遍历list，调用get方法，获取list中的对象实例
+//                                    Method getM = clazz.getDeclaredMethod("get", int.class);
+//                                    if (!getM.isAccessible()) {
+//                                        getM.setAccessible(true);
+//                                        Object category = getM.invoke(robotActivityField.get(param.thisObject), i);
+//                                        XposedHelpers.setIntField(category, "originalPrice", -20);
+//                                        XposedHelpers.setIntField(category, "price", -10);
+//                                        XposedHelpers.setFloatField(category, "discount", (float) 0.02);
+//                                    }
+//                                }
+//                                XposedBridge.log("category list set..");
+//                            }
+//                        }
+//                    });
+//
+
+            final Class<?> SimpleHttpCallback =
+                    lpparam.classLoader.loadClass("com.walid.rxretrofit.interfaces.SimpleHttpCallback");
+
+            //test hook not exact before http request
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.api.model.user.online.a",
+                    lpparam.classLoader,
+                    "a",
+                    Map.class,
+                    SimpleHttpCallback,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("Starting http request...");
+                            Map hashMap = (Map) param.args[0];
+                            Iterator iter = hashMap.entrySet().iterator();
+                            while (iter.hasNext()) {
+                                Map.Entry entry = (Map.Entry) iter.next();
+                                String key = (String) entry.getKey();
+                                Object value = entry.getValue();
+                                XposedBridge.log("key:" + key + " value:" + value);
+                            }
+                            if (!hashMap.containsKey("itemIdentity")) {
+                                hashMap.put("areaCode", "CN");
+//                                hashMap.put("gender", "FEMALE");
+                                hashMap.put("cityCode", "330100");
+//                                hashMap.put("x", "0.0");
+//                                hashMap.put("y", "0.0");
+                                hashMap.put("cardType", 1);
+                                hashMap.put("itemIdentity", 60000300);
+                            }
+                        }
+                    });
+
+            //test, might be online text match
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.ui.planet.robot.RobotActivity",
+                    lpparam.classLoader,
+                    "l",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("text match?");
+                            XposedBridge.log("this.Q:" + XposedHelpers.getBooleanField(
+                                    param.thisObject, "Q"
+                            ));
+                            XposedBridge.log("this.q:" + XposedHelpers.getBooleanField(
+                                    param.thisObject, "q"
+                            ));
+                            XposedBridge.log("speedup this.B:" + XposedHelpers.getBooleanField(
+                                    param.thisObject, "B"
+                            ));
+                        }
+                    });
+
+
+            //soul币不足 分发后event bl value
+            final Class<?> bl = lpparam.classLoader.loadClass("cn.soulapp.android.event.bl");
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.view.dialog.l",
+                    lpparam.classLoader,
+                    "handleEvent",
+                    bl,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("bl b final value: " +
+                                    XposedHelpers.getIntField(param.args[0], "b")
+                            );
+                        }
+                    });
+
+
+            //soul币不足 bl settings
+            XposedHelpers.findAndHookConstructor(
+                    "cn.soulapp.android.event.bl",
+                    lpparam.classLoader,
+                    int.class,
+                    int.class,
+                    String.class,
+                    MatchCard,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+
+//                            XposedBridge.log("Dump Stack: " + "---------------start----------------");
+//                            Throwable ex = new Throwable();
+//                            StackTraceElement[] stackElements = ex.getStackTrace();
+//                            if (stackElements != null) {
+//                                for (int i = 0; i < stackElements.length; i++) {
+//
+//                                    XposedBridge.log("Dump Stack--ServerSocket" + i + ": " + stackElements[i].getClassName()
+//                                            + "----" + stackElements[i].getFileName()
+//                                            + "----" + stackElements[i].getLineNumber()
+//                                            + "----" + stackElements[i].getMethodName());
+//                                }
+//
+//                                XposedBridge.log("Stack: " + "---------------over----------------");
+//                            }
+
+
+                            XposedBridge.log("MatchCard bl func values1-2: " +
+                                    param.args[0].toString() + ";" + param.args[1].toString());
+                            XposedBridge.log("MatchCard bl func values3: " + param.args[2]);
+                            if (param.args[1].toString().equals("-1")) {
+                                XposedBridge.log("Changes b value from -1 to 1");
+                                param.args[1] = 1;
+                                param.args[2] = null;
+                            }
+                            if (param.args[3] != null) {
+                                Object matchCard = param.args[3];
+                                int matchCard_type =
+                                        XposedHelpers.getIntField(matchCard, "type");
+                                String matchCard_title =
+                                        (String) XposedHelpers.getObjectField(matchCard, "title");
+                                String matchCard_reason =
+                                        (String) XposedHelpers.getObjectField(matchCard, "reason");
+                                int matchCard_soulCoin =
+                                        XposedHelpers.getIntField(matchCard, "soulCoin");
+                                int matchCard_status =
+                                        XposedHelpers.getIntField(matchCard, "status");
+                                int matchCard_discountSoulCoin =
+                                        XposedHelpers.getIntField(matchCard, "discountSoulCoin");
+
+                                XposedBridge.log(
+                                        String.format(
+                                                "type:%d title:%s reason:%s soulcoin:%d status:%d discountsoulcoin:%d",
+                                                matchCard_type, matchCard_title, matchCard_reason, matchCard_soulCoin,
+                                                matchCard_status, matchCard_discountSoulCoin));
+//                                XposedHelpers.setIntField(param.args[3], "discountSoulCoin", 0);
+                                XposedHelpers.setIntField(param.args[3], "status", 1);
+                                XposedHelpers.setObjectField(param.args[3], "reason", null);
+                            }
+                            XposedBridge.log("done");
+                        }
+                    });
+
+
+            //region KeyHash
+//            //key
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.utils.a.a",
+//                    lpparam.classLoader,
+//                    "b",
+//                    String.class,
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                            XposedBridge.log("pfx b string string returned:" + param.getResult());
+//                        }
+//                    });
+//
+//            //key
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.utils.a.a",
+//                    lpparam.classLoader,
+//                    "a",
+//                    String.class,
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                            XposedBridge.log("pfx a string string returned:" + param.getResult());
+//                        }
+//                    });
+//
+//
+            //endregion
+
+            //region OLD Code
+//            final Class<?> emmessage = lpparam.classLoader.loadClass("com.hyphenate.chat.EMMessage");
+//
+//            //Snapchat
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getIntAttribute",
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "snapChat".compareTo(param.args[0].toString())==0 )
+//                                XposedBridge.log("getIntAttribute snapChat is called.");
+//                            param.setResult(0);
+//                        }
+//                    });
+//
+//            //Snapchat
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getIntAttribute",
+//                    String.class,
+//                    int.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "snapChat".compareTo(param.args[0].toString())==0 )
+//                                XposedBridge.log("getIntAttribute snapChat is called.");
+//                            param.setResult(0);
+//                        }
+//                    });
+//
+//
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMChatManager",
+//                    lpparam.classLoader,
+//                    "setMessageListened",
+//                    emmessage,
+//                    new XC_MethodReplacement() {
+//                        @Override
+//                        protected Object replaceHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            XposedBridge.log("setMessageListened is called.");
+//                            return null;
+//                        }
+//                    });
+//
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMChatManager",
+//                    lpparam.classLoader,
+//                    "setVoiceMessageListened",
+//                    emmessage,
+//                    new XC_MethodReplacement() {
+//                        @Override
+//                        protected Object replaceHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            XposedBridge.log("setVoiceMessageListened is called.");
+//                            return null;
+//                        }
+//                    });
+//
+//
+//
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMChatManager",
+//                    lpparam.classLoader,
+//                    "ackMessageRead",
+//                    String.class,
+//                    String.class,
+//                    new XC_MethodReplacement() {
+//                        @Override
+//                        protected Object replaceHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            XposedBridge.log("ackMessageRead is called.");
+//                            return null;
+//                        }
+//                    });
+            //endregion
+
+            //region OLD RECALL
+//            //RECALL
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getStringAttribute",
+//                    String.class,
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "Revokeflag".equals(param.args[0].toString())) {
+//                                XposedBridge.log("getAttribute Revokeflag is called.");
+//                                param.setResult(null);
+//                            }
+//                        }
+//                    });
+//
+//            //RECALL
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getStringAttribute",
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "Revokeflag".equals(param.args[0].toString())) {
+//                                XposedBridge.log("getAttribute Revokeflag is called.");
+//                                param.setResult(null);
+//                            }
+//                        }
+//                    });
+//
+//            //RECALL
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getStringAttribute",
+//                    String.class,
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "messageType".equals(param.args[0].toString())) {
+//                                if (param.getResult() != null && param.getResult().toString().equals("RECALL")) {
+//                                    XposedBridge.log("getAttribute RECALL is called.");
+//                                    param.setResult("TXT");
+//                                }
+//                            }
+//                        }
+//                    });
+//
+//            //RECALL
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getStringAttribute",
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "messageType".equals(param.args[0].toString())) {
+//                                if (param.getResult() != null && param.getResult().toString().equals("RECALL")) {
+//                                    XposedBridge.log("getAttribute RECALL is called.");
+//                                    param.setResult("TXT");
+//                                }
+//                            }
+//                        }
+//                    });
+//
+//            //Snapchat
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getIntAttribute",
+//                    String.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "snapChat".equals(param.args[0].toString())) {
+//                                XposedBridge.log("getIntAttribute snapChat is called.");
+//                                param.setResult(0);
+//                            }
+//                        }
+//                    });
+//
+//            //Snapchat
+//            XposedHelpers.findAndHookMethod(
+//                    "com.hyphenate.chat.EMMessage",
+//                    lpparam.classLoader,
+//                    "getIntAttribute",
+//                    String.class,
+//                    int.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            if (param.args[0] != null && "snapChat".equals(param.args[0].toString())) {
+//                                XposedBridge.log("getIntAttribute snapChat is called.");
+//                                param.setResult(0);
+//                            }
+//                        }
+//                    });
+            //endregion
+
+
+
+            /*
+              public static void a(String paramString1, String paramString2)
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).a(paramString1, paramString2, c.c().o, c.c().t), new SimpleHttpCallback()
+    {
+      public void a(Balance paramAnonymousBalance)
+      {
+        if (paramAnonymousBalance != null)
+        {
+          c.c().p = paramAnonymousBalance.balance;
+          c localc = c.c();
+          StringBuilder localStringBuilder;
+          if (c.c().p > 10)
+          {
+            localStringBuilder = new StringBuilder();
+            localStringBuilder.append(c.c().p);
+            localStringBuilder.append("Soul���������������");
+            localStringBuilder.append(c.c().p / 10);
+          }
+          for (paramAnonymousBalance = "���";; paramAnonymousBalance = "Soul���������������0���")
+          {
+            localStringBuilder.append(paramAnonymousBalance);
+            paramAnonymousBalance = localStringBuilder.toString();
+            break;
+            localStringBuilder = new StringBuilder();
+            localStringBuilder.append(c.c().p);
+          }
+          localc.q = paramAnonymousBalance;
+        }
+        j.b("-----������������-----", new Object[0]);
+      }
+    }, false);
+  }
+             */
+
+/*
+package cn.soulapp.android.api.model.pay.bean;
+
+import java.io.Serializable;
+
+public class PayResult
+ */
+
+            /*
+            public static void a(String paramString1, String paramString2, boolean paramBoolean) {
+    HashMap hashMap = new HashMap();
+    hashMap.put("targetUserIdEcpt", paramString1);
+    hashMap.put("channelName", paramString2);
+    hashMap.put("uuid", (VoiceRtcEngine.e()).r);
+    hashMap.put("speedUp", Boolean.valueOf((VoiceRtcEngine.e()).x));
+    if ((VoiceRtcEngine.e()).z != null)
+      hashMap.put("cardType", Integer.valueOf((VoiceRtcEngine.e()).z.cardType));
+    hashMap.put("cardResult", Boolean.valueOf(paramBoolean));
+    a.a(((IRobotApi)a.a(IRobotApi.class)).enterChannel(hashMap), new SimpleHttpCallback<Balance>() {
+          public void a(Balance param1Balance) {
+            if (param1Balance != null) {
+              String str;
+              (VoiceRtcEngine.e()).s = param1Balance.balance;
+              VoiceRtcEngine voiceRtcEngine;
+              if (((voiceRtcEngine = VoiceRtcEngine.e()).e()).s > 10) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("������10soul���������������");
+                stringBuilder.append((VoiceRtcEngine.e()).s / 10);
+                stringBuilder.append("���");
+                str = stringBuilder.toString();
+              } else {
+                str = "������10soul���������������0���";
+              }
+              voiceRtcEngine.t = str;
+            }
+            g.b("-----������������-----", new Object[0]);
+          }
+        }false);
+  }
+  */
+/*
+  public static void c()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).e(), new SimpleHttpCallback()
+    {
+      public void a(User paramAnonymousUser)
+      {
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+ */
+            /*
+              public static void b()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).d(), new SimpleHttpCallback()
+    {
+      public void a(User paramAnonymousUser)
+      {
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+             */
+
+
+
+            //match count
+            /*
+            a() record
+              public static void a(String paramString1, String paramString2) enterChannel
+  public static void b() end
+  public static void c() break
+
+             */
+
+
+            /*
+            public static void a()
+  {
+    cn.soulapp.android.api.model.user.a.a(((a)cn.soulapp.android.api.model.user.a.a(a.class)).c(), new SimpleHttpCallback()
+    {
+      public void a(RemainTimes paramAnonymousRemainTimes)
+      {
+        c.c().j = paramAnonymousRemainTimes;
+        j.b("������������", new Object[0]);
+      }
+    }, false);
+  }
+             */
+
+
+
+
+//            //show public during voice matching
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.voicecall.c",
+//                    lpparam.classLoader,
+//                    "onUserJoined",
+//                    int.class,
+//                    int.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            Object returnedObj = param.getResult();
+//                            XposedHelpers.setBooleanField(param.thisObject, "f", true);
+//                        }
+//                    });
+
+
+//            //show public during voice matching
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
+//                    lpparam.classLoader,
+//                    "d",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            Object returnedObj = param.getResult();
+//                            if (returnedObj != null)
+//                                XposedHelpers.setBooleanField(param.thisObject, "h", true);
+//                        }
+//                    });
+
+
+            /*   void a(int paramInt)
+  {
+    this.a = paramInt;
+    if ((cn.soulapp.android.ui.voicecall.c.c().e) && (cn.soulapp.android.ui.voicecall.c.c().f))
+    {
+      this.statusTv.setText("");
+      cn.soulapp.android.ui.voicecall.c.c().l().stopAudioMixing();
+      this.statusTv.setBackgroundResource(2131233998);
+      if (!this.e) {
+        this.B.a(2131298323, false);
+        */
+            /*
+            void a(int paramInt)
+  {
+    this.a = paramInt;
+    if ((VoiceRtcEngine.d().g) && (VoiceRtcEngine.d().h))
+    {
+      this.statusTv.setText("");
+      VoiceRtcEngine.d().n().stopAudioMixing();
+      this.statusTv.setBackgroundResource(2131232034);
+      if (!this.j) {
+        if (!ay.a(this.i))
+        {
+          this.D.setVisible(2131298622, true);
+          this.D.setText(2131298622, this.i);
+        }
+        else
+        {
+          this.D.setVisible(2131298622, false);
+        }
+      }
+      this.emojiLayout.setVisibility(0);
+      this.addTimeLayout.setVisibility(4);
+      this.statusTv.setTextColor(Color.parseColor("#FFFFFF"));
+    }
+             */
+
+            //show public during voice matching
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.ui.voicecall.VoiceRtcEngine",
+                    lpparam.classLoader,
+                    "d",
+                    new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            Object returnedObj = param.getResult();
+                            XposedHelpers.setBooleanField(returnedObj, "h", true);
+                        }
+                    });
+
+
+
+//            //set soulmate enabled
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.myim.ui.ConversationMenuActivity",
+//                    lpparam.classLoader,
+//                    "b",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            TextView textView = (TextView) XposedHelpers.getObjectField(param.thisObject, "itemSoulmate");
+//                            textView.setEnabled(true);
+//                            XposedHelpers.callMethod(param.thisObject, "d");
+//                        }
+//                    });
+
+
+            //no time to calc, just disable as I don't need the snap func
+//
+//            //Snapchat disable
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.imlib.msg.chat.ChatMessage",
+//                    lpparam.classLoader,
+//                    "getSnapChat",
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void afterHookedMethod(MethodHookParam param)
+//                                throws Throwable {
+//                            param.setResult(0);
+//                            XposedHelpers.setIntField(param.thisObject, "snapChat", 0);
+//                        }
+//                    });
+//
+
+
+
