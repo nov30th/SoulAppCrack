@@ -28,7 +28,7 @@ public class PluginMain implements IXposedHookLoadPackage {
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20190719——" + "79");
+            XposedBridge.log("Updated At 20190720——" + "80");
             XposedBridge.log("For Soulmate 3.3.2 Only");
 
 

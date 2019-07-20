@@ -10,34 +10,17 @@
     tools:context="im.hoho.soulapp.MainActivity">
 
 
-    <Switch
-        android:id="@+id/switchEnableMatchSee"
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="18dp"
-        android:text="启用匹配透视"
-        android:visibility="visible" />
-
-    <Switch
-        android:id="@+id/switchEnableSoul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/switchEnableMatchSee"
-        android:text="开启灵魂无限"
-        android:visibility="visible" />
+        android:layout_height="490dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_width="316dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="soulapp 外挂  By http://hoho.im"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
