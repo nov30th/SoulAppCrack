@@ -31,6 +31,23 @@ public class PluginMain implements IXposedHookLoadPackage {
             XposedBridge.log("Updated At 20190720——" + "80");
             XposedBridge.log("For Soulmate 3.3.2 Only");
 
+            final Class<?> userClass = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.user.bean.User");
+
+            //set block null
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.ui.user.userhome.UserHomeActivity",
+                    lpparam.classLoader,
+                    "setUser",
+                    userClass,
+                    new XC_MethodHook() {
+                        @SuppressLint("SetTextI18n")
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param)
+                                throws Throwable {
+                            XposedHelpers.setBooleanField(param.args[0], "blockedByTarget", false);
+                        }
+                    });
+
 
             //set soulmate enabled
             XposedHelpers.findAndHookMethod(
@@ -120,7 +137,6 @@ public class PluginMain implements IXposedHookLoadPackage {
                         }
                     });
 
-            final Class<?> userClass = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.user.bean.User");
 
             //blockedByTarget
             XposedHelpers.findAndHookMethod(
