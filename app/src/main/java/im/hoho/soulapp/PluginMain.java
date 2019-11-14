@@ -1,6 +1,7 @@
 package im.hoho.soulapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.widget.TextView;
 
@@ -28,8 +29,40 @@ public class PluginMain implements IXposedHookLoadPackage {
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20190720——" + "80");
-            XposedBridge.log("For Soulmate 3.3.2 Only");
+            XposedBridge.log("Updated At 20191114——" + "82");
+            XposedBridge.log("For Soulmate 3.4.3 Only");
+
+
+//            /*************************FOR VIRTUALXPOSED ONLY**************************/
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.utils.ae",
+//                    lpparam.classLoader,
+//                    "a",
+//                    Context.class,
+//                    new XC_MethodReplacement() {
+//                        @Override
+//                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+////                            XposedBridge.log("a record method");
+//                            return null;
+//                        }
+//                    });
+//            /*************************FOR VIRTUALXPOSED ONLY**************************/
+
+            /*************************FOR VIRTUALXPOSED ONLY**************************/
+            XposedHelpers.findAndHookMethod(
+                    "cn.soulapp.android.utils.ae",
+                    lpparam.classLoader,
+                    "a",
+                    Context.class,
+                    new XC_MethodReplacement() {
+                        @Override
+                        protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
+//                            XposedBridge.log("a record method");
+                            return false;
+                        }
+                    });
+            /*************************FOR VIRTUALXPOSED ONLY**************************/
+
 
             final Class<?> userClass = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.user.bean.User");
 
