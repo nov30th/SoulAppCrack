@@ -3,7 +3,14 @@ package im.hoho.soulapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextThemeWrapper;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -21,6 +28,24 @@ public class PluginMain implements IXposedHookLoadPackage {
         XposedBridge.log("Now Loading HOHO`` soul app plugin...");
     }
 
+    private Context context = null;
+
+    private void showMyToast(final Toast toast, final int cnt) {
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toast.show();
+            }
+        }, 0, 3000);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                toast.cancel();
+                timer.cancel();
+            }
+        }, cnt);
+    }
 
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
@@ -29,7 +54,7 @@ public class PluginMain implements IXposedHookLoadPackage {
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20191114——" + "82");
+            XposedBridge.log("Updated At 20191114——" + "88");
             XposedBridge.log("For Soulmate 3.4.3 Only");
 
 
@@ -66,6 +91,20 @@ public class PluginMain implements IXposedHookLoadPackage {
 
             final Class<?> userClass = lpparam.classLoader.loadClass("cn.soulapp.android.api.model.user.user.bean.User");
 
+
+            XposedHelpers.findAndHookMethod("cn.soulapp.android.SoulApp", lpparam.classLoader, "attachBaseContext", Context.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    XposedBridge.log("Loading context...");
+
+                    if (param.args[0] != null) {
+                        context = (Context) param.args[0];
+                        XposedBridge.log("Context is loaded...");
+
+                    }
+                }
+            });
+
             //set block null
             XposedHelpers.findAndHookMethod(
                     "cn.soulapp.android.ui.user.userhome.UserHomeActivity",
@@ -78,6 +117,15 @@ public class PluginMain implements IXposedHookLoadPackage {
                         protected void beforeHookedMethod(MethodHookParam param)
                                 throws Throwable {
                             XposedHelpers.setBooleanField(param.args[0], "blockedByTarget", false);
+                            Long birthday = (Long) XposedHelpers.getObjectField(param.args[0], "birthday");
+//                            String avatarName = (String) XposedHelpers.getObjectField(param.args[0], "avatarName");
+                            String birthdayStr = new SimpleDateFormat("生日: yyyy-MM-dd").format(new Date(birthday));
+                            XposedBridge.log(" birthday: " + birthdayStr);
+                            if (context != null) {
+                                @SuppressLint("ShowToast")
+                                Toast toast = Toast.makeText(context, " birthday: " + birthdayStr, Toast.LENGTH_LONG);
+                                showMyToast(toast, 10 * 1000);
+                            }
                         }
                     });
 
@@ -246,23 +294,23 @@ public class PluginMain implements IXposedHookLoadPackage {
                         }
                     });
 
-
-            //Match bag 福袋
-            XposedHelpers.findAndHookMethod(
-                    "cn.soulapp.android.ui.planet.index.PlanetBFragment",
-                    lpparam.classLoader,
-                    "showMatchBag",
-                    boolean.class,
-                    boolean.class,
-                    new XC_MethodHook() {
-                        @Override
-                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                            XposedBridge.log("show match bag values:" + param.args[0] + ";" + param.args[1]);
-                            param.args[0] = true;
-                            param.args[1] = true;
-//                            XposedBridge.log("chages to all true...");
-                        }
-                    });
+//
+//            //Match bag 福袋
+//            XposedHelpers.findAndHookMethod(
+//                    "cn.soulapp.android.ui.planet.index.PlanetBFragment",
+//                    lpparam.classLoader,
+//                    "showMatchBag",
+//                    boolean.class,
+//                    boolean.class,
+//                    new XC_MethodHook() {
+//                        @Override
+//                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                            XposedBridge.log("show match bag values:" + param.args[0] + ";" + param.args[1]);
+//                            param.args[0] = true;
+//                            param.args[1] = true;
+////                            XposedBridge.log("chages to all true...");
+//                        }
+//                    });
 
         }
     }

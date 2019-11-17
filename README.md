@@ -11,6 +11,7 @@ Also, the new version has enabled unlimited voice matching and first-class match
   - View blocked person profile/moments.
   - Unlimited matching with good quality ppl who judged by SoulApp.
   - Fixes soulapp package issue which could not works in VirtualXposed.
+  - Shows birthday date when open the user info page.
 
 **中文**
 
@@ -21,7 +22,8 @@ Also, the new version has enabled unlimited voice matching and first-class match
   - 与任意人结成Soulmate并激活Soulmate空间.
   - 文字，图片，视频消息防撤回并有撤回通知.
   - 闪照，闪视频以普通图片及视频显示，无时间限制.
-  - 修复原生SoulApp应用程序在VirtualXposed下会崩溃的问题。
+  - 修复原生SoulApp应用程序在VirtualXposed下会崩溃的问题.
+  - 浏览对方瞬间时显示对方生日信息.
 
 **My personal project/use, public when all these functions were useless.**
 **Will be useful for noob learning How To Hook**
