@@ -17,7 +17,7 @@ Also, the new version has enabled unlimited voice matching and first-class match
 
   - 无限语音匹配. 
   - 无限语音优先匹配次数.
-  - 无线语音匹配优质对手（3.3.2新功能）.
+  - 无线语音匹配优质对手（魔仙卡，仙女卡.. 3.3.2新功能）.
   - 接通语音匹配瞬间显示对方资料.
   - 与任意人结成Soulmate并激活Soulmate空间.
   - 文字，图片，视频消息防撤回并有撤回通知.
