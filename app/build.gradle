@@ -8,8 +8,8 @@ android {
         applicationId "im.hoho.soulapp"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 88
-        versionName "3.4.3"
+        versionCode 130
+        versionName "3.20.0"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
