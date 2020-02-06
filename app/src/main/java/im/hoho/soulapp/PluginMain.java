@@ -54,8 +54,76 @@ public class PluginMain implements IXposedHookLoadPackage {
         if (lpparam.packageName.contains("cn.soulapp.android")) {
             XposedBridge.log("Loaded App: " + lpparam.packageName);
             XposedBridge.log("Powered by HOHO`` 20181215");
-            XposedBridge.log("Updated At 20191114——" + "88");
-            XposedBridge.log("For Soulmate 3.4.3 Only");
+            XposedBridge.log("Updated At 20200207——" + "130");
+            XposedBridge.log("For Soulmate 3.20.0 Only");
+
+
+
+
+            try {
+                XposedHelpers.findAndHookMethod(
+                        "cn.soulapp.android.api.model.superstar.bean.RightInfo",
+                        lpparam.classLoader,
+                        "isHasCancelVIPSubscription",
+                        new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param)
+                                    throws Throwable {
+                                param.setResult(false);
+                            }
+                        });
+
+                XposedHelpers.findAndHookMethod(
+                        "cn.soulapp.android.api.model.superstar.bean.RightInfo",
+                        lpparam.classLoader,
+                        "isShowSuperVIP",
+                        new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param)
+                                    throws Throwable {
+                                param.setResult(true);
+                            }
+                        });
+
+                XposedHelpers.findAndHookMethod(
+                        "cn.soulapp.android.api.model.superstar.bean.RightInfo",
+                        lpparam.classLoader,
+                        "isSuperVIP",
+                        new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param)
+                                    throws Throwable {
+                                param.setResult(true);
+                            }
+                        });
+
+                XposedHelpers.findAndHookMethod(
+                        "cn.soulapp.android.api.model.superstar.bean.RightInfo",
+                        lpparam.classLoader,
+                        "getLeftDay",
+                        new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param)
+                                    throws Throwable {
+                                param.setResult(365);
+                            }
+                        });
+
+                XposedHelpers.findAndHookMethod(
+                        "cn.soulapp.android.api.model.superstar.bean.RightInfo",
+                        lpparam.classLoader,
+                        "isHasMyMeet",
+                        new XC_MethodHook() {
+                            @Override
+                            protected void afterHookedMethod(MethodHookParam param)
+                                    throws Throwable {
+                                param.setResult(true);
+                            }
+                        });
+            }catch (Exception ex){
+                XposedBridge.log("VIP function test failed!");
+            }
+
 
 
 //            /*************************FOR VIRTUALXPOSED ONLY**************************/

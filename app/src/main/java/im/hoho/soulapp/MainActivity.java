@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.listview);
         textView = (TextView) findViewById(R.id.textView2);
 
-        textView.setText("适用于版本3.4.3，默认已经启用如下功能。");
+        textView.setText("适用于版本3.20.0，默认已经启用如下功能。");
 
         listview.setDividerHeight(0);//屏蔽掉listview的横线
         listview.setDivider(null);
