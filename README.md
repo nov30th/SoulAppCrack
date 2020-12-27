@@ -1,3 +1,13 @@
+# 公开原因
+
+20201228 公开本人18年自用，从未外传的SoulApp助手代码。
+
+2年前未完全商业发展期间soul陪伴本人走过了挺多有意思的时光，认识了一些积极向上的小伙伴。
+
+随着soul的商业化越来越熟练，目前匹配到的小伙伴大多只是无聊打发时间，与以往区别很大。
+
+最终还是慢慢走出了小众软件的范围，逐渐的变成一个打发无聊时间的工具。
+
 # SoulApp Crack
 
 SoulApp Crack is a personal project which makes SoulApp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
@@ -29,3 +39,20 @@ Also, the new version has enabled unlimited voice matching and first-class match
 **Will be useful for noob learning How To Hook**
 
 **This project is a high secret which under personal Git account, no sharing.**
+
+
+# Sample of soulmate
+
+## Old memories
+
+<img src="sample_images/IMG_4334.JPG" height="300">
+<img src="sample_images/Screenshot_2018-11-25-20-29-06-674_io.va.exposed.png" height="300">
+<img src="sample_images/IMG_4271.PNG" height="300">
+<img src="sample_images/IMG_4276.PNG" height="300">
+<img src="sample_images/IMG_4281.PNG" height="300">
+<img src="sample_images/IMG_4346.PNG" height="300">
+<img src="sample_images/Screenshot_2018-12-29-22-24-32-580_io.va.exposed.png" height="300">
+<img src="sample_images/Screenshot_2018-12-29-22-47-13-561_io.va.exposed.png" height="300">
+<img src="sample_images/Screenshot_20190920_012047_cn.soulapp.android.jpg" height="300">
+
+More and more.. all memories.
