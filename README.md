@@ -1,3 +1,5 @@
+<img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" height="200">
+
 # 公开原因
 
 20201228 公开本人18年自用，从未外传的SoulApp助手代码。
