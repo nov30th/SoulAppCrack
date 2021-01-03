@@ -56,5 +56,6 @@ Also, the new version has enabled unlimited voice matching and first-class match
 <img src="sample_images/Screenshot_2018-12-29-22-24-32-580_io.va.exposed.png" height="300">
 <img src="sample_images/Screenshot_2018-12-29-22-47-13-561_io.va.exposed.png" height="300">
 <img src="sample_images/Screenshot_20190920_012047_cn.soulapp.android.jpg" height="300">
+<img src="sample_images/371609701140_.pic.jpg" height="300">
 
 More and more.. all memories.
