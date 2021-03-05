@@ -10,6 +10,8 @@
 
 最终还是慢慢走出了小众软件的范围，逐渐的变成一个打发无聊时间的工具。
 
+同时，这个软件的服务也越来越垃圾，真心为那些单纯小女生感到悲哀。[一旦软件商业化，牺牲的就是你们这些小屌丝，不好意思，我吐了]
+
 # SoulApp Crack
 
 SoulApp Crack is a personal project which makes SoulApp more friendly, it blocks the recall, shows snapchat image/video as normal image/video, shows the personal details during voice matching.
